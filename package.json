@@ -8,6 +8,7 @@
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
+    "test:motiondot:e2e": "pnpm --filter @motiondot/e2e test",
     "push:all": "bash ./scripts/push-all.sh"
   }
 }

@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./config/worker.config": "./src/config/worker.config.ts",
+    "./workers/batch.worker": "./src/workers/batch.worker.ts",
+    "./workers/conversion.worker": "./src/workers/conversion.worker.ts",
+    "./threads/ffmpeg-thread-pool": "./src/threads/ffmpeg-thread-pool.ts",
+    "./processors/conversion.processor": "./src/processors/conversion.processor.ts"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node --import tsx src/index.ts",

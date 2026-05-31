@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "noEmit": true,
+    "rootDir": "./src",
+    "paths": {
+      "@motiondot/worker/*": ["../../apps/motiondot-worker/src/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

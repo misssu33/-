@@ -27,3 +27,12 @@ export async function closeRedisConnection(): Promise<void> {
     sharedConnection = null;
   }
 }
+
+/** E2E·단위 테스트 — Redis 클라이언트 주입 (BullMQ는 별도 실 Redis 필요) */
+export function setTestRedisConnection(redis: Redis): void {
+  sharedConnection = redis;
+}
+
+export function resetTestRedisConnection(): void {
+  sharedConnection = null;
+}

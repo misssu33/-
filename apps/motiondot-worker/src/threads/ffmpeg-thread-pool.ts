@@ -58,7 +58,8 @@ export class FfmpegThreadPool {
 
   private spawnWorker(): void {
     const worker = new Worker(WORKER_SCRIPT, {
-      execArgv: ["--import", "tsx"],
+      // 부모(node --import tsx)와 동일한 TS/ESM 해석
+      execArgv: process.execArgv.length > 0 ? process.execArgv : ["--import", "tsx"],
     }) as TaggedWorker;
 
     worker.on("message", (msg: FfmpegWorkerOutbound) => {

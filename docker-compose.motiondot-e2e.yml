@@ -1,0 +1,6 @@
+# MotionDot E2E — BullMQ 큐 테스트용 Redis
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"

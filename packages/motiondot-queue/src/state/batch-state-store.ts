@@ -197,3 +197,8 @@ export function getBatchStateStore(): BatchStateStore {
   if (!store) store = new BatchStateStore();
   return store;
 }
+
+/** 테스트 간 Redis 클라이언트 교체 시 스토어 재생성 */
+export function resetBatchStateStore(): void {
+  store = null;
+}

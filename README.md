@@ -6,6 +6,9 @@
 ## What Lives Here
 - `apps/web`: 상세페이지 마법사 UI와 관련 실험 화면
 - `apps/api`: 상세페이지 생성에 필요한 API
+- `apps/motiondot`: **MotionDot** — 배치 GIF/MP4/WebP 변환기 (Next.js)
+- `apps/motiondot-worker`: MotionDot BullMQ 워커
+- `packages/motiondot-*`: MotionDot 공유 패키지 (ffmpeg, presets, queue, remotion)
 - `packages/shared`: PDP 관련 공용 타입
 
 ## Start

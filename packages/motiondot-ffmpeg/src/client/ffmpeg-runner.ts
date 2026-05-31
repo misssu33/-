@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { resolveFfmpegPath } from "../utils/ffmpeg-bin";
 
 export interface FfmpegRunOptions {
   args: string[];
@@ -15,7 +16,7 @@ export interface FfmpegRunResult {
  * ffmpeg 프로세스 실행 — progress 파싱은 별도 parser에서 처리
  */
 export function runFfmpeg(options: FfmpegRunOptions): Promise<FfmpegRunResult> {
-  const bin = options.ffmpegPath ?? process.env.FFMPEG_PATH ?? "ffmpeg";
+  const bin = resolveFfmpegPath(options.ffmpegPath);
   const stderrChunks: string[] = [];
 
   return new Promise((resolve, reject) => {

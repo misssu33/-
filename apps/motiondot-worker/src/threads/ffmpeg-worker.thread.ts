@@ -1,5 +1,5 @@
 import { parentPort } from "node:worker_threads";
-import { ConversionPipeline } from "@motiondot/ffmpeg";
+import { convertMedia } from "@motiondot/ffmpeg";
 import type { FfmpegWorkerRequest, FfmpegWorkerResponse } from "./types";
 
 /**
@@ -8,19 +8,15 @@ import type { FfmpegWorkerRequest, FfmpegWorkerResponse } from "./types";
 parentPort?.on("message", async (raw: FfmpegWorkerRequest) => {
   if (raw.type !== "convert") return;
 
-  const pipeline = new ConversionPipeline();
   let response: FfmpegWorkerResponse;
 
   try {
-    if (raw.ffmpegPath) {
-      process.env.FFMPEG_PATH = raw.ffmpegPath;
-    }
-
-    const result = await pipeline.run({
+    const result = await convertMedia({
       sourcePath: raw.sourcePath,
       outputPath: raw.outputPath,
       presetId: raw.presetId,
       format: raw.format,
+      ffmpegPath: raw.ffmpegPath,
     });
 
     response = {

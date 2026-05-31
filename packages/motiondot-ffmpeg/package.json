@@ -7,6 +7,8 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./conversion": "./src/conversion/index.ts",
+    "./probe": "./src/probe/index.ts",
     "./pipeline": "./src/pipeline/index.ts"
   },
   "scripts": {

@@ -4,5 +4,6 @@ export const siteConfig = {
   links: {
     converter: "/converter",
     batch: "/batch",
+    templates: "/templates",
   },
 } as const;

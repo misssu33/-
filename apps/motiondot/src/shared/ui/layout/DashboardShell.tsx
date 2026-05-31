@@ -9,6 +9,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         <nav className="mt-6 flex flex-col gap-2 text-sm text-zinc-400">
           <Link href={siteConfig.links.converter}>Converter</Link>
           <Link href={siteConfig.links.batch}>Batch Queue</Link>
+          <Link href={siteConfig.links.templates}>Ad Templates</Link>
         </nav>
       </aside>
       <main className="flex-1 p-6">{children}</main>

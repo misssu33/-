@@ -71,6 +71,9 @@ importers:
       '@motiondot/shared':
         specifier: workspace:*
         version: link:../../packages/motiondot-shared
+      '@motiondot/templates':
+        specifier: workspace:*
+        version: link:../../packages/motiondot-templates
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -275,6 +278,9 @@ importers:
       '@motiondot/shared':
         specifier: workspace:*
         version: link:../motiondot-shared
+      '@motiondot/templates':
+        specifier: workspace:*
+        version: link:../motiondot-templates
       react:
         specifier: ^19.0.0
         version: 19.2.6
@@ -285,6 +291,9 @@ importers:
         specifier: ^4.0.0
         version: 4.0.469(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
     devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.19
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.15
@@ -293,6 +302,22 @@ importers:
         version: 5.9.3
 
   packages/motiondot-shared:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.19
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+
+  packages/motiondot-templates:
+    dependencies:
+      '@motiondot/presets':
+        specifier: workspace:*
+        version: link:../motiondot-presets
+      '@motiondot/shared':
+        specifier: workspace:*
+        version: link:../motiondot-shared
     devDependencies:
       '@types/node':
         specifier: ^22.0.0

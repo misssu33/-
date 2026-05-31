@@ -12,7 +12,8 @@
 | `packages/motiondot-presets` | SNS/커머스 프리셋 |
 | `packages/motiondot-ffmpeg` | ffmpeg CLI & pipelines |
 | `packages/motiondot-queue` | BullMQ queues & Redis |
-| `packages/motiondot-remotion` | Preview compositions |
+| `packages/motiondot-templates` | 광고 모션 템플릿 엔진 |
+| `packages/motiondot-remotion` | Remotion 씬·컴포지션 렌더 |
 
 ## Data Flow
 

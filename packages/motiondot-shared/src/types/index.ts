@@ -3,6 +3,7 @@
  */
 export * from "./job";
 export * from "./batch";
+export * from "./ad-template";
 export * from "./media";
 export * from "./preset";
 export * from "./progress";

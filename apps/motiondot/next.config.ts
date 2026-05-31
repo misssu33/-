@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     "@motiondot/queue",
     "@motiondot/ffmpeg",
     "@motiondot/remotion",
+    "@motiondot/templates",
   ],
   experimental: {
     serverActions: {

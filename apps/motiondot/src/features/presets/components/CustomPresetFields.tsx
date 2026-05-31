@@ -12,7 +12,7 @@ export function CustomPresetFields() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 rounded-lg border border-zinc-800 p-3 text-sm">
+    <div className="grid grid-cols-1 gap-3 rounded-lg border border-zinc-800 p-3 text-sm sm:grid-cols-2">
       <label className="space-y-1">
         <span className="text-xs text-zinc-500">너비 (px)</span>
         <input

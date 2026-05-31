@@ -35,22 +35,24 @@ export function ConverterFlowShell() {
   const showDeliver = stepReached(currentStep, "deliver");
 
   return (
-    <div className="space-y-8">
-      <header className="space-y-4">
+    <div className="space-y-6 sm:space-y-8">
+      <header className="space-y-3 sm:space-y-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">변환 작업</h1>
-          <p className="mt-1 text-sm text-zinc-500">
+          <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
+            변환 작업
+          </h1>
+          <p className="mt-1 text-xs leading-relaxed text-zinc-500 sm:text-sm">
             업로드 → 프리셋 → 배치 변환 → 프리뷰·Export까지 한 화면에서 진행합니다.
           </p>
         </div>
         <WorkflowStepper currentStep={currentStep} />
       </header>
 
-      <div className="grid gap-8 xl:grid-cols-[1fr_320px]">
-        <div className="space-y-8">
+      <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,20rem)] lg:gap-8 xl:grid-cols-[1fr_320px]">
+        <div className="space-y-6 sm:space-y-8">
           <section
             id="step-upload"
-            className="scroll-mt-6 space-y-4 rounded-xl border border-zinc-800/80 p-5"
+            className="scroll-mt-20 space-y-4 rounded-xl border border-zinc-800/80 p-4 sm:scroll-mt-6 sm:p-5"
           >
             <SectionTitle
               step={1}
@@ -64,7 +66,7 @@ export function ConverterFlowShell() {
           {showConfigure && (
             <section
               id="step-configure"
-              className="scroll-mt-6 space-y-4 rounded-xl border border-zinc-800/80 p-5"
+              className="scroll-mt-20 space-y-4 rounded-xl border border-zinc-800/80 p-4 sm:scroll-mt-6 sm:p-5"
             >
             <SectionTitle
               step={2}
@@ -80,7 +82,7 @@ export function ConverterFlowShell() {
           {showConvert && (
             <section
               id="step-convert"
-              className="scroll-mt-6 space-y-4 rounded-xl border border-zinc-800/80 p-5"
+              className="scroll-mt-20 space-y-4 rounded-xl border border-zinc-800/80 p-4 sm:scroll-mt-6 sm:p-5"
             >
               <SectionTitle
                 step={3}
@@ -95,7 +97,7 @@ export function ConverterFlowShell() {
           {showDeliver && (
             <section
               id="step-deliver"
-              className="scroll-mt-6 space-y-4 rounded-xl border border-zinc-800/80 p-5"
+              className="scroll-mt-20 space-y-4 rounded-xl border border-zinc-800/80 p-4 sm:scroll-mt-6 sm:p-5"
             >
               <SectionTitle
                 step={4}
@@ -108,7 +110,7 @@ export function ConverterFlowShell() {
           )}
         </div>
 
-        <aside className="space-y-4 xl:sticky xl:top-6 xl:self-start">
+        <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
           <WorkflowGuideCard currentStep={currentStep} />
           <BatchProgressLive />
         </aside>

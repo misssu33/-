@@ -51,10 +51,10 @@ export function OnboardingOverlay({ forceOpen = false }: { forceOpen?: boolean }
       aria-modal="true"
       aria-labelledby="onboarding-title"
     >
-      <div className="w-full max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900 p-8 shadow-2xl">
+      <div className="max-h-[90dvh] w-full max-w-lg overflow-y-auto rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-2xl sm:p-8">
         <div className="flex items-center justify-center">
           <span
-            className="flex h-20 w-20 items-center justify-center rounded-2xl bg-brand/15 text-4xl text-brand"
+            className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand/15 text-3xl text-brand sm:h-20 sm:w-20 sm:text-4xl"
             aria-hidden
           >
             {slide.visual}

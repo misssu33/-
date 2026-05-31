@@ -22,10 +22,10 @@ export function TemplateWorkspace() {
   const categories = [...new Set(templates.map((t) => t.category))];
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="grid min-w-0 gap-6 lg:grid-cols-2 lg:gap-8">
       <div className="space-y-6">
         <div>
-          <h1 className="text-xl font-semibold">광고 모션 템플릿</h1>
+          <h1 className="text-lg font-semibold sm:text-xl">광고 모션 템플릿</h1>
           <p className="mt-1 text-sm text-zinc-500">
             템플릿 선택 → 카피 입력 → Remotion 컴포지션 플랜 생성
           </p>

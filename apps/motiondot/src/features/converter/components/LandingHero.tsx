@@ -4,11 +4,11 @@ import { Button } from "@/shared/ui/button/Button";
 
 export function LandingHero() {
   return (
-    <section className="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
+    <section className="flex flex-1 flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24">
       <p className="text-sm font-medium uppercase tracking-widest text-brand">
         SNS · 커머스 배치 변환
       </p>
-      <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
+      <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
         {siteConfig.name}
       </h1>
       <p className="mt-4 max-w-lg text-zinc-400">{siteConfig.description}</p>

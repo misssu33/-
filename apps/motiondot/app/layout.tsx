@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   description: "Batch GIF/MP4/WebP converter for social & commerce",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {

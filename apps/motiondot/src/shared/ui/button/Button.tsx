@@ -12,7 +12,7 @@ export function Button({
   return (
     <button
       className={cn(
-        "rounded-lg px-4 py-2 text-sm font-medium transition",
+        "min-h-[2.75rem] rounded-lg px-4 py-2.5 text-sm font-medium transition sm:min-h-0 sm:py-2",
         variant === "primary" &&
           "bg-brand text-brand-foreground hover:opacity-90",
         variant === "ghost" && "text-zinc-400 hover:text-zinc-100",

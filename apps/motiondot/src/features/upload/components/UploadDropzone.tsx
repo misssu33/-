@@ -64,7 +64,7 @@ export function UploadDropzone() {
       <div
         {...getRootProps()}
         className={cn(
-          "cursor-pointer rounded-xl border-2 border-dashed p-10 text-center transition-colors",
+          "cursor-pointer rounded-xl border-2 border-dashed p-6 text-center transition-colors sm:p-10",
           isDragActive && !isDragReject && "border-brand bg-brand/5",
           isDragReject && "border-red-500/80 bg-red-500/5",
           !isDragActive &&

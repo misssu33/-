@@ -10,14 +10,14 @@ export function FormatSelector() {
   const { format, setFormat } = useConverterStore();
 
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-wrap gap-2">
       {FORMATS.map((f) => (
         <button
           key={f}
           type="button"
           onClick={() => setFormat(f)}
           className={cn(
-            "rounded-md border px-3 py-1.5 text-sm uppercase",
+            "min-h-[2.75rem] min-w-[4.5rem] flex-1 rounded-md border px-3 py-2 text-sm uppercase sm:min-h-0 sm:flex-none sm:py-1.5",
             format === f ? "border-brand text-brand" : "border-zinc-800",
           )}
         >

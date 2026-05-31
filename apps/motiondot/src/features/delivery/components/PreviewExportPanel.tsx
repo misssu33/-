@@ -34,9 +34,10 @@ export function PreviewExportPanel() {
         <p className="text-xs text-zinc-500">업로드 후 배치 ID가 생성됩니다.</p>
       )}
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         <Button
           type="button"
+          className="w-full sm:w-auto"
           disabled={!batchId || isPreviewStarting}
           onClick={() => void startPreview()}
         >
@@ -45,6 +46,7 @@ export function PreviewExportPanel() {
         <Button
           type="button"
           variant="ghost"
+          className="w-full sm:w-auto"
           disabled={!batchId || isExportStarting}
           onClick={() => void startExport()}
         >

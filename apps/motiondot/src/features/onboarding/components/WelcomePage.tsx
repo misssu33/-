@@ -13,11 +13,11 @@ export function WelcomePage() {
   const { complete } = useOnboarding();
 
   return (
-    <div className="mx-auto flex min-h-[80vh] max-w-3xl flex-col justify-center px-6 py-16">
+    <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col justify-center px-4 py-12 sm:px-6 sm:py-16">
       <p className="text-center text-sm font-medium uppercase tracking-widest text-brand">
         시작 가이드
       </p>
-      <h1 className="mt-4 text-center text-3xl font-bold tracking-tight">
+      <h1 className="mt-4 text-center text-2xl font-bold tracking-tight sm:text-3xl">
         {siteConfig.name}로 SNS 영상을 배치 변환하세요
       </h1>
       <p className="mt-4 text-center text-zinc-400">{siteConfig.description}</p>

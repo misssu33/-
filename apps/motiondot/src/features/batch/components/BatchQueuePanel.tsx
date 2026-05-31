@@ -22,8 +22,8 @@ export function BatchQueuePanel() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold">배치 큐</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <h1 className="text-lg font-semibold sm:text-xl">배치 큐</h1>
+        <p className="mt-1 text-xs leading-relaxed text-zinc-500 sm:text-sm">
           변환 작업 상태를 모니터링합니다.{" "}
           <Link
             href={siteConfig.links.converter}

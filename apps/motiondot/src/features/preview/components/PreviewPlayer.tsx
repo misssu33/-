@@ -4,7 +4,7 @@
 export function PreviewPlayer({ src }: { src?: string }) {
   if (!src) {
     return (
-      <div className="flex aspect-[9/16] max-w-sm items-center justify-center rounded-lg bg-zinc-900 text-xs text-zinc-500">
+      <div className="flex aspect-[9/16] w-full max-w-sm items-center justify-center rounded-lg bg-zinc-900 text-xs text-zinc-500">
         미리보기 대기 중
       </div>
     );
@@ -13,7 +13,7 @@ export function PreviewPlayer({ src }: { src?: string }) {
     <video
       src={src}
       controls
-      className="max-w-sm rounded-lg"
+      className="mx-auto w-full max-w-sm rounded-lg"
       playsInline
     />
   );

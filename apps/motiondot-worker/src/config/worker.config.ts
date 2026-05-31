@@ -1,4 +1,4 @@
-import { ENV_KEYS } from "@motiondot/shared";
+import { ENV_KEYS, resolveStorageRoot } from "@motiondot/shared";
 
 export interface WorkerConfig {
   /** BullMQ conversion 워커 동시 잡 수 */
@@ -7,6 +7,7 @@ export interface WorkerConfig {
   threadPoolSize: number;
   storageRoot: string;
   ffmpegPath: string;
+  ffprobePath: string;
 }
 
 export function loadWorkerConfig(): WorkerConfig {
@@ -16,7 +17,8 @@ export function loadWorkerConfig(): WorkerConfig {
     threadPoolSize: Number(
       process.env[ENV_KEYS.THREAD_POOL_SIZE] ?? concurrency,
     ),
-    storageRoot: process.env[ENV_KEYS.STORAGE_ROOT] ?? "./storage",
+    storageRoot: resolveStorageRoot(),
     ffmpegPath: process.env[ENV_KEYS.FFMPEG_PATH] ?? "ffmpeg",
+    ffprobePath: process.env[ENV_KEYS.FFPROBE_PATH] ?? "ffprobe",
   };
 }

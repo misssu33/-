@@ -1,4 +1,5 @@
 import { join } from "node:path";
+import { resolveStorageRoot } from "./resolve-storage-root";
 
 /** 스토리지 루트 하위 디렉터리 역할 */
 export type StorageBucket = "temp" | "uploads" | "output" | "previews";
@@ -36,8 +37,6 @@ export class StoragePathManager {
 }
 
 /** 환경 변수 또는 기본 로컬 경로로 매니저 인스턴스 생성 */
-export function createStoragePathManager(
-  storageRoot = process.env.MOTIONDOT_STORAGE_ROOT ?? "./storage",
-): StoragePathManager {
-  return new StoragePathManager(storageRoot);
+export function createStoragePathManager(storageRoot?: string): StoragePathManager {
+  return new StoragePathManager(resolveStorageRoot(storageRoot));
 }

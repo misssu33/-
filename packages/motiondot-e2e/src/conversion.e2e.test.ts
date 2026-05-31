@@ -17,6 +17,7 @@ import { seedUploadFixture } from "./helpers/fixtures";
 import { waitForBatchComplete } from "./helpers/wait-batch";
 import { startConversionWorkers } from "./helpers/workers";
 import { runDirectConversion } from "./helpers/direct-conversion";
+import { runBatchPipelineWithoutQueue } from "./helpers/batch-pipeline";
 import {
   teardownRedis,
   tryRealRedis,
@@ -81,7 +82,7 @@ describe("MotionDot conversion E2E", { timeout: 180_000 }, () => {
       useMockRedis();
     });
 
-    it("fixture → initBatch → processConversionJob → output MP4", async (t) => {
+    it("fixture → conversion.processor → output MP4", async (t) => {
       if (!ffmpegOk) {
         t.skip("ffmpeg not available");
         return;
@@ -106,6 +107,7 @@ describe("MotionDot conversion E2E", { timeout: 180_000 }, () => {
         threadPoolSize: 1,
         storageRoot,
         ffmpegPath,
+        ffprobePath,
       };
 
       const outputPath = await runDirectConversion(
@@ -126,6 +128,45 @@ describe("MotionDot conversion E2E", { timeout: 180_000 }, () => {
         fixture.batchId,
         fixture.fileId,
         outputPath,
+      );
+    });
+
+    it("batch init → conversion.processor (fan-out) → output MP4", async (t) => {
+      if (!ffmpegOk) {
+        t.skip("ffmpeg not available");
+        return;
+      }
+
+      const fixture = await seedUploadFixture(storageRoot, ffmpegPath);
+      const payload = BatchOrchestrator.buildPayload({
+        batchId: fixture.batchId,
+        presetId: "tiktok",
+        outputFormat: "mp4",
+        files: [
+          {
+            id: fixture.fileId,
+            originalName: fixture.originalName,
+            storagePath: fixture.sourcePath,
+          },
+        ],
+      });
+
+      const workerConfig = {
+        concurrency: 1,
+        threadPoolSize: 1,
+        storageRoot,
+        ffmpegPath,
+        ffprobePath,
+      };
+
+      const outputs = await runBatchPipelineWithoutQueue(payload, workerConfig);
+      const batch = await waitForBatchComplete(fixture.batchId);
+      assert.equal(batch.status, "completed");
+      await assertConvertedOutput(
+        storageRoot,
+        fixture.batchId,
+        fixture.fileId,
+        outputs[0]!,
       );
     });
   });
@@ -172,6 +213,7 @@ describe("MotionDot conversion E2E", { timeout: 180_000 }, () => {
         threadPoolSize: 1,
         storageRoot,
         ffmpegPath,
+        ffprobePath,
       };
 
       const handles = startConversionWorkers(workerConfig);

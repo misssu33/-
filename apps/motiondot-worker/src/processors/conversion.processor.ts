@@ -21,7 +21,7 @@ export async function processConversionJob(
   const output = `${outputDir}/${job.data.itemId}.${job.data.outputFormat}`;
 
   const store = getBatchStateStore();
-  const probe = await probeMedia(source, config.ffmpegPath);
+  const probe = await probeMedia(source, config.ffprobePath);
 
   await store.updateItem(job.data.batchId, job.data.itemId, {
     status: "processing",

@@ -9,7 +9,8 @@
     "./workers/batch.worker": "./src/workers/batch.worker.ts",
     "./workers/conversion.worker": "./src/workers/conversion.worker.ts",
     "./threads/ffmpeg-thread-pool": "./src/threads/ffmpeg-thread-pool.ts",
-    "./processors/conversion.processor": "./src/processors/conversion.processor.ts"
+    "./processors/conversion.processor": "./src/processors/conversion.processor.ts",
+    "./processors/batch.processor": "./src/processors/batch.processor.ts"
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",

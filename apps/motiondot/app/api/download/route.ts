@@ -5,6 +5,7 @@ import { Readable } from "node:stream";
 import { NextResponse } from "next/server";
 import { assertInsideStorageRoot } from "@motiondot/delivery";
 import { getDeliveryStateStore } from "@motiondot/queue";
+import { resolveStorageRoot } from "@motiondot/shared";
 
 const MIME: Record<string, string> = {
   mp4: "video/mp4",
@@ -68,9 +69,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "File not ready" }, { status: 404 });
   }
 
-  const storageRoot =
-    process.env.MOTIONDOT_STORAGE_ROOT ??
-    `${process.cwd()}/apps/motiondot/storage`;
+  const storageRoot = resolveStorageRoot();
 
   let safePath: string;
   try {

@@ -36,6 +36,7 @@ export async function processConversionJob(
     format: job.data.outputFormat,
     ffmpegPath: config.ffmpegPath,
     durationSec: probe.durationSec,
+    presetOverrides: job.data.presetOverrides,
     onProgress: (percent) => {
       void (async () => {
         const batch = await store.updateItem(

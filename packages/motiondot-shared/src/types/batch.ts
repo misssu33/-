@@ -1,5 +1,5 @@
 import type { ExportFormat } from "./media";
-import type { PresetId } from "./preset";
+import type { PresetId, PresetOverrides } from "./preset";
 import type { JobStatus } from "./job";
 
 /** 배치 내 단일 파일 작업 */
@@ -14,6 +14,7 @@ export interface BatchJobPayload {
   batchId: string;
   presetId: PresetId;
   outputFormat: ExportFormat;
+  presetOverrides?: PresetOverrides;
   items: BatchItemPayload[];
   createdAt: string;
 }

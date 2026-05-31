@@ -22,6 +22,7 @@ export class BatchOrchestrator {
         originalName: item.originalName,
         presetId: payload.presetId,
         outputFormat: payload.outputFormat,
+        presetOverrides: payload.presetOverrides,
         createdAt: payload.createdAt,
       };
 
@@ -36,12 +37,14 @@ export class BatchOrchestrator {
     batchId: string;
     presetId: BatchJobPayload["presetId"];
     outputFormat: BatchJobPayload["outputFormat"];
+    presetOverrides?: BatchJobPayload["presetOverrides"];
     files: { id: string; originalName: string; storagePath: string }[];
   }): BatchJobPayload {
     return {
       batchId: input.batchId,
       presetId: input.presetId,
       outputFormat: input.outputFormat,
+      presetOverrides: input.presetOverrides,
       createdAt: new Date().toISOString(),
       items: input.files.map((f) => ({
         itemId: f.id,

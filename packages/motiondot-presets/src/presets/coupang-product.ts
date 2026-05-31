@@ -1,15 +1,19 @@
-import type { PlatformPreset } from "../types";
+import { definePreset } from "../define-preset";
 
-/** Coupang 상품 상세 — 정사각/가로 혼용, 기본 1:1 */
-export const coupangProductPreset: PlatformPreset = {
+export const coupangProductPreset = definePreset({
   id: "coupang_product",
   label: "Coupang Product",
-  description: "1000×1000, 상품 GIF/WebP 루프",
+  description: "1:1 상품 루프 · 최대 15초 · 1000×1000",
+  category: "commerce",
+  platform: "coupang",
   width: 1000,
   height: 1000,
   aspectRatio: "1:1",
   maxDurationSec: 15,
   fps: 24,
   defaultFormat: "webp",
+  recommendedFormats: ["webp", "gif", "mp4"],
   videoBitrateKbps: 2000,
-};
+  tags: ["ecommerce", "product", "loop"],
+  constraints: { maxFileSizeMb: 20, maxDurationSec: 15 },
+});

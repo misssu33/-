@@ -3,13 +3,19 @@ import {
   enqueueBatch,
   getBatchStateStore,
 } from "@motiondot/queue";
-import type { BatchJobMeta, ExportFormat, PresetId } from "@motiondot/shared";
-import type { SourceMediaMeta } from "@motiondot/shared";
+import type {
+  BatchJobMeta,
+  ExportFormat,
+  PresetId,
+  PresetOverrides,
+  SourceMediaMeta,
+} from "@motiondot/shared";
 
 export interface StartBatchInput {
   batchId: string;
   presetId: PresetId;
   outputFormat: ExportFormat;
+  presetOverrides?: PresetOverrides;
   files: SourceMediaMeta[];
 }
 
@@ -25,6 +31,7 @@ export async function startBatchQueue(
     batchId: input.batchId,
     presetId: input.presetId,
     outputFormat: input.outputFormat,
+    presetOverrides: input.presetOverrides,
     files: input.files.map((f) => ({
       id: f.id,
       originalName: f.originalName,

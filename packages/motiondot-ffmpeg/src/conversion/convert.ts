@@ -11,6 +11,7 @@ export async function convertMedia(
     outputPath: input.outputPath,
     presetId: input.presetId,
     format: input.format,
+    presetOverrides: input.presetOverrides,
   });
 
   const result = await runFfmpeg({

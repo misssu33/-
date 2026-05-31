@@ -1,4 +1,4 @@
-import type { ExportFormat, PresetId } from "@motiondot/shared";
+import type { ExportFormat, PresetId, PresetOverrides } from "@motiondot/shared";
 
 /** 메인 스레드 → worker thread 메시지 */
 export interface FfmpegWorkerRequest {
@@ -10,6 +10,7 @@ export interface FfmpegWorkerRequest {
   format: ExportFormat;
   ffmpegPath?: string;
   durationSec?: number | null;
+  presetOverrides?: PresetOverrides;
 }
 
 export interface FfmpegWorkerProgressMessage {

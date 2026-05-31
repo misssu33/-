@@ -1,15 +1,19 @@
-import type { PlatformPreset } from "../types";
+import { definePreset } from "../define-preset";
 
-/** TikTok 세로 숏폼 (9:16) */
-export const tiktokPreset: PlatformPreset = {
+export const tiktokPreset = definePreset({
   id: "tiktok",
   label: "TikTok",
-  description: "1080×1920, 최대 60초, 세로 숏폼",
+  description: "9:16 숏폼 · 최대 60초 · 1080×1920",
+  category: "short_form",
+  platform: "tiktok",
   width: 1080,
   height: 1920,
   aspectRatio: "9:16",
   maxDurationSec: 60,
   fps: 30,
   defaultFormat: "mp4",
+  recommendedFormats: ["mp4", "webp"],
   videoBitrateKbps: 4000,
-};
+  tags: ["shorts", "vertical", "social"],
+  constraints: { maxFileSizeMb: 287, maxDurationSec: 60 },
+});

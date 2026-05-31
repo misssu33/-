@@ -17,3 +17,11 @@ export interface PresetSpec {
   fps: number;
   defaultFormat: import("./media").ExportFormat;
 }
+
+/** Custom 프리셋 런타임 오버라이드 */
+export interface PresetOverrides {
+  width?: number;
+  height?: number;
+  maxDurationSec?: number;
+  fps?: number;
+}

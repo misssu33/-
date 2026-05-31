@@ -1,4 +1,23 @@
 # @motiondot/presets
 
-TikTok, Instagram Reels, Threads, Coupang 상품 페이지 등 SNS/커머스별 출력 스펙 프리셋을 정의합니다.
-UI 선택·ffmpeg 인코딩·Remotion 캔버스 크기가 동일한 소스를 참조합니다.
+SNS/커머스 출력 스펙 단일 소스 — UI, ffmpeg, Remotion이 동일 프리셋을 참조합니다.
+
+## Presets
+
+| ID | Platform | Category |
+|----|----------|----------|
+| `tiktok` | TikTok | short_form |
+| `instagram_reels` | Instagram | short_form |
+| `threads` | Threads | short_form |
+| `instagram_feed` | Instagram | feed |
+| `coupang_product` | Coupang | commerce |
+| `custom` | — | custom |
+
+## API
+
+```ts
+import { getPreset, resolvePreset, listPresetGroups, validatePreset } from "@motiondot/presets";
+
+const preset = resolvePreset("custom", { width: 720, height: 1280 });
+const issues = validatePreset(preset);
+```

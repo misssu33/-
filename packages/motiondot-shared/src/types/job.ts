@@ -1,5 +1,5 @@
 import type { ExportFormat } from "./media";
-import type { PresetId } from "./preset";
+import type { PresetId, PresetOverrides } from "./preset";
 
 /** BullMQ 배치 작업 상태 */
 export type JobStatus =
@@ -22,6 +22,7 @@ export interface ConversionJobPayload {
   sourcePaths?: string[];
   presetId: PresetId;
   outputFormat: ExportFormat;
+  presetOverrides?: PresetOverrides;
   createdAt: string;
 }
 

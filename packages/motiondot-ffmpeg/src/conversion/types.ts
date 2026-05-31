@@ -1,10 +1,11 @@
-import type { ExportFormat, PresetId } from "@motiondot/shared";
+import type { ExportFormat, PresetId, PresetOverrides } from "@motiondot/shared";
 
 export interface ConvertMediaInput {
   sourcePath: string;
   outputPath: string;
   presetId: PresetId;
   format: ExportFormat;
+  presetOverrides?: PresetOverrides;
   ffmpegPath?: string;
   onStderr?: (chunk: string) => void;
 }

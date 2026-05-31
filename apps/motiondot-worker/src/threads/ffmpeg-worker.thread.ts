@@ -17,6 +17,7 @@ parentPort?.on("message", async (raw: FfmpegWorkerRequest) => {
       presetId: raw.presetId,
       format: raw.format,
       ffmpegPath: raw.ffmpegPath,
+      presetOverrides: raw.presetOverrides,
       onStderr: (chunk) => {
         const percent = estimateProgressPercent(chunk, raw.durationSec ?? null);
         if (percent !== null) {

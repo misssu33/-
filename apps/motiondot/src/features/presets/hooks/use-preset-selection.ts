@@ -1,10 +1,19 @@
 "use client";
 
-import { getPreset } from "@motiondot/presets";
+import { resolvePreset, validatePreset } from "@motiondot/presets";
 import { useConverterStore } from "@/stores/converter-store";
 
 export function usePresetSelection() {
   const presetId = useConverterStore((s) => s.presetId);
-  const preset = getPreset(presetId);
-  return { presetId, preset };
+  const overrides = useConverterStore((s) => s.presetOverrides);
+  const preset = resolvePreset(presetId, overrides);
+  const issues = validatePreset(preset);
+
+  return {
+    presetId,
+    preset,
+    overrides,
+    isValid: issues.length === 0,
+    issues,
+  };
 }

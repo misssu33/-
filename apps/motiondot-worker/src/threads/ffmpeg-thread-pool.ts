@@ -7,7 +7,7 @@ import type {
   FfmpegWorkerResponse,
   FfmpegWorkerOutbound,
 } from "./types";
-import type { ExportFormat, PresetId } from "@motiondot/shared";
+import type { ExportFormat, PresetId, PresetOverrides } from "@motiondot/shared";
 
 export interface ThreadPoolConvertInput {
   sourcePath: string;
@@ -16,6 +16,7 @@ export interface ThreadPoolConvertInput {
   format: ExportFormat;
   ffmpegPath?: string;
   durationSec?: number | null;
+  presetOverrides?: PresetOverrides;
   onProgress?: (percent: number) => void;
 }
 
@@ -103,6 +104,7 @@ export class FfmpegThreadPool {
         format: task.input.format,
         ffmpegPath: task.input.ffmpegPath ?? this.ffmpegPath,
         durationSec: task.input.durationSec,
+        presetOverrides: task.input.presetOverrides,
       };
 
       worker.__task = task;

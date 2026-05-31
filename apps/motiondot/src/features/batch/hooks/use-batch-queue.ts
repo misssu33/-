@@ -13,7 +13,7 @@ export function useBatchQueue() {
   const setBatchId = useBatchStore((s) => s.setBatchId);
   const setActiveBatch = useBatchStore((s) => s.setActiveBatch);
   const setProgressBatch = useProgressStore((s) => s.setActiveBatch);
-  const { presetId, format } = useConverterStore();
+  const { presetId, format, presetOverrides } = useConverterStore();
 
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,6 +35,8 @@ export function useBatchQueue() {
           batchId,
           presetId,
           outputFormat: format,
+          presetOverrides:
+            presetId === "custom" ? presetOverrides : undefined,
           files: uploadedFiles,
         }),
       });
@@ -60,6 +62,7 @@ export function useBatchQueue() {
     uploadedFiles,
     presetId,
     format,
+    presetOverrides,
     setActiveBatch,
     setProgressBatch,
   ]);

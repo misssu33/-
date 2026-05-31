@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { startBatchQueue } from "@/features/batch/services/batch-queue-service";
-import type { ExportFormat, PresetId } from "@motiondot/shared";
+import type { ExportFormat, PresetId, PresetOverrides } from "@motiondot/shared";
 
 export async function POST(request: Request) {
   try {
@@ -8,6 +8,7 @@ export async function POST(request: Request) {
       batchId: string;
       presetId: PresetId;
       outputFormat: ExportFormat;
+      presetOverrides?: PresetOverrides;
       files: {
         id: string;
         originalName: string;
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
       batchId: body.batchId,
       presetId: body.presetId,
       outputFormat: body.outputFormat,
+      presetOverrides: body.presetOverrides,
       files: body.files,
     });
 

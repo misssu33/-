@@ -1,33 +1,43 @@
 "use client";
 
-import { listPresets } from "@motiondot/presets";
+import { listPresetGroups } from "@motiondot/presets";
 import { useConverterStore } from "@/stores/converter-store";
-import { cn } from "@/shared/lib/cn";
+import { categoryLabel } from "../lib/preset-labels";
+import { PresetCard } from "./PresetCard";
+import { PresetDetailPanel } from "./PresetDetailPanel";
+import { CustomPresetFields } from "./CustomPresetFields";
+import { usePresetSelection } from "../hooks/use-preset-selection";
 
 export function PresetSelector() {
-  const presets = listPresets();
-  const { presetId, setPresetId } = useConverterStore();
+  const groups = listPresetGroups();
+  const presetId = useConverterStore((s) => s.presetId);
+  const setPresetId = useConverterStore((s) => s.setPresetId);
+  const { preset } = usePresetSelection();
 
   return (
-    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-      {presets.map((p) => (
-        <button
-          key={p.id}
-          type="button"
-          onClick={() => setPresetId(p.id)}
-          className={cn(
-            "rounded-lg border px-3 py-2 text-left text-sm transition",
-            presetId === p.id
-              ? "border-brand bg-brand/10"
-              : "border-zinc-800 hover:border-zinc-600",
-          )}
-        >
-          <span className="font-medium">{p.label}</span>
-          <span className="mt-0.5 block text-xs text-zinc-500">
-            {p.width}×{p.height}
-          </span>
-        </button>
+    <div className="space-y-4">
+      <p className="text-sm font-medium text-zinc-200">SNS 프리셋</p>
+
+      {groups.map((group) => (
+        <section key={group.category}>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-500">
+            {categoryLabel(group.category)}
+          </h3>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {group.presets.map((p) => (
+              <PresetCard
+                key={p.id}
+                preset={p}
+                selected={presetId === p.id}
+                onSelect={() => setPresetId(p.id)}
+              />
+            ))}
+          </div>
+        </section>
       ))}
+
+      {presetId === "custom" && <CustomPresetFields />}
+      <PresetDetailPanel preset={preset} />
     </div>
   );
 }

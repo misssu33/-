@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { BatchProgressLive } from "@/features/progress";
+import { siteConfig } from "@/shared/config/site";
 import { useBatchQueue } from "../hooks/use-batch-queue";
 import { StartBatchButton } from "./StartBatchButton";
 import { cn } from "@/shared/lib/cn";
@@ -20,9 +22,15 @@ export function BatchQueuePanel() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold">Batch Queue</h1>
+        <h1 className="text-xl font-semibold">배치 큐</h1>
         <p className="mt-1 text-sm text-zinc-500">
-          BullMQ 배치 오케스트레이션 · worker thread ffmpeg
+          변환 작업 상태를 모니터링합니다.{" "}
+          <Link
+            href={siteConfig.links.converter}
+            className="text-brand underline hover:opacity-90"
+          >
+            변환 작업으로 돌아가기
+          </Link>
         </p>
       </div>
 

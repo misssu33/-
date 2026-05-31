@@ -1,0 +1,25 @@
+{
+  "name": "@motiondot/e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --import tsx --test 'src/**/*.test.ts' 'src/**/*.e2e.test.ts'",
+    "test:conversion": "node --import tsx --test src/conversion.e2e.test.ts",
+    "test:conversion:queue": "MOTIONDOT_INLINE_FFMPEG=1 node --import tsx --test src/conversion.e2e.test.ts --test-name-pattern 'queue'"
+  },
+  "dependencies": {
+    "@motiondot/ffmpeg": "workspace:*",
+    "@motiondot/queue": "workspace:*",
+    "@motiondot/shared": "workspace:*",
+    "@motiondot/worker": "workspace:*",
+    "bullmq": "^5.34.0",
+    "ioredis": "5.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "ioredis-mock": "^8.9.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

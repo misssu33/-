@@ -1,0 +1,9 @@
+.next/
+node_modules/
+.env
+.env.local
+storage/temp/*
+storage/uploads/*
+storage/output/*
+storage/previews/*
+!storage/**/.gitkeep

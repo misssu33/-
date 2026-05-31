@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@motiondot/delivery": ["../../packages/motiondot-delivery/src/index.ts"],
+      "@motiondot/shared": ["../../packages/motiondot-shared/src/index.ts"],
+      "@motiondot/presets": ["../../packages/motiondot-presets/src/index.ts"],
+      "@motiondot/queue": ["../../packages/motiondot-queue/src/index.ts"],
+      "@motiondot/ffmpeg": ["../../packages/motiondot-ffmpeg/src/index.ts"],
+      "@motiondot/remotion": ["../../packages/motiondot-remotion/src/index.ts"]
+    },
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

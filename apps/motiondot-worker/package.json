@@ -1,0 +1,33 @@
+{
+  "name": "@motiondot/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./config/worker.config": "./src/config/worker.config.ts",
+    "./workers/batch.worker": "./src/workers/batch.worker.ts",
+    "./workers/conversion.worker": "./src/workers/conversion.worker.ts",
+    "./threads/ffmpeg-thread-pool": "./src/threads/ffmpeg-thread-pool.ts",
+    "./processors/conversion.processor": "./src/processors/conversion.processor.ts",
+    "./processors/batch.processor": "./src/processors/batch.processor.ts"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node --import tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@motiondot/delivery": "workspace:*",
+    "@motiondot/ffmpeg": "workspace:*",
+    "@motiondot/queue": "workspace:*",
+    "@motiondot/shared": "workspace:*",
+    "bullmq": "^5.34.0",
+    "ioredis": "5.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

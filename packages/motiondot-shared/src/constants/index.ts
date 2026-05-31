@@ -16,6 +16,8 @@ export const UPLOAD_LIMITS = {
   allowedMimePrefixes: ["image/", "video/"] as const,
 } as const;
 
+export * from "./upload";
+
 export const ENV_KEYS = {
   REDIS_URL: "REDIS_URL",
   STORAGE_ROOT: "MOTIONDOT_STORAGE_ROOT",

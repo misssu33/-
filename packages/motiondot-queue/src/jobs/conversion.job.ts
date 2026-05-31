@@ -7,6 +7,9 @@ export async function enqueueConversion(
   data: ConversionJobData,
 ): Promise<string> {
   const queue = createConversionQueue();
-  const job = await queue.add("convert", data, { jobId: data.jobId });
+  const jobId = data.batchId
+    ? `${data.batchId}:${data.itemId}`
+    : data.jobId;
+  const job = await queue.add("convert", data, { jobId });
   return job.id ?? data.jobId;
 }

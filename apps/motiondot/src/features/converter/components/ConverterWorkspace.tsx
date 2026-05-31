@@ -3,6 +3,7 @@ import { PresetSelector } from "@/features/presets";
 import { PreviewPlayer } from "@/features/preview";
 import { ExportPanel } from "@/features/export";
 import { JobProgressCard } from "@/features/progress";
+import { StartBatchButton } from "@/features/batch";
 import { FormatSelector } from "./FormatSelector";
 
 /** 변환기 메인 — feature 컴포넌트만 조합 */
@@ -13,6 +14,7 @@ export function ConverterWorkspace() {
         <UploadDropzone />
         <PresetSelector />
         <FormatSelector />
+        <StartBatchButton />
         <ExportPanel />
       </div>
       <div className="space-y-6">

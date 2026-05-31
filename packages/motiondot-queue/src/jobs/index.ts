@@ -1,3 +1,5 @@
+export type { BatchJobData } from "./batch.job";
+export { enqueueBatch } from "./batch.job";
 export type { ConversionJobData } from "./conversion.job";
 export type { PreviewJobData } from "./preview.job";
 export type { ExportJobData } from "./export.job";

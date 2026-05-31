@@ -54,6 +54,7 @@ export async function handleUpload(request: Request): Promise<UploadResult> {
     metas.push({
       id,
       originalName: file.name,
+      storagePath: dest,
       mimeType: file.type || `video/${ext}`,
       sizeBytes: file.size,
     });

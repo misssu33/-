@@ -1,4 +1,28 @@
 # @motiondot/queue
 
-BullMQ 큐·잡 정의와 Redis 연결을 공유합니다. Next.js API는 job을 enqueue하고,
-`apps/motiondot-worker`는 동일한 큐 이름으로 consume합니다.
+BullMQ 큐·잡·Redis 배치 상태·오케스트레이션.
+
+## Batch pipeline
+
+```
+POST /api/batch
+    → enqueueBatch (motiondot:batch)
+        → BatchOrchestrator.dispatch
+            → N × conversion jobs (motiondot:conversion)
+                → worker thread ffmpeg
+            → BatchStateStore (Redis progress)
+```
+
+## Queues
+
+| Queue | Role |
+|-------|------|
+| `motiondot:batch` | Fan-out orchestrator |
+| `motiondot:conversion` | Per-file transcode (worker threads) |
+| `motiondot:preview` | Low-res preview |
+| `motiondot:export` | Final export bundle |
+| `motiondot:cleanup` | Temp file TTL |
+
+## Optional FlowProducer
+
+`enqueueBatchFlow()` — parent/child dependency graph (see `src/flows/batch-flow.ts`).

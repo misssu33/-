@@ -5,6 +5,8 @@ export type ExportFormat = "gif" | "mp4" | "webp";
 export interface SourceMediaMeta {
   id: string;
   originalName: string;
+  /** 워커·ffmpeg가 읽는 절대/상대 디스크 경로 */
+  storagePath: string;
   mimeType: string;
   sizeBytes: number;
   durationMs?: number;

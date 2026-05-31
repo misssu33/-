@@ -17,11 +17,12 @@
 ## Data Flow
 
 1. **Upload** → `storage/uploads/{batchId}`
-2. **API** enqueues → Redis/BullMQ
-3. **Worker** transcodes → `storage/output/{jobId}`
-4. **Preview** → `storage/previews` + Remotion
-5. **Progress** → Redis pub → SSE `/api/progress`
-6. **Export** → zip/download URLs (future)
+2. **POST /api/batch** → `motiondot:batch` queue
+3. **Batch worker** fan-out → `motiondot:conversion` × N
+4. **Conversion worker** → `worker_threads` ffmpeg → `storage/output/{batchId}/`
+5. **BatchStateStore** (Redis) → `GET /api/batch/[id]` + SSE `/api/progress`
+6. **Preview** → `storage/previews` + Remotion
+7. **Export** → zip/download URLs (future)
 
 ## Rules
 

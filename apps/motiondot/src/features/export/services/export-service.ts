@@ -1,27 +1,26 @@
-import { createExportQueue } from "@motiondot/queue";
-import type { ExportFormat, PresetId } from "@motiondot/shared";
-import { createStoragePathManager } from "@motiondot/shared";
+import { startBatchExport } from "@/features/delivery/services/delivery-service";
+import type {
+  ExportFormat,
+  PresetId,
+  PresetOverrides,
+  SourceMediaMeta,
+} from "@motiondot/shared";
 
 export interface ExportRequestBody {
-  jobId: string;
-  batchId?: string;
+  batchId: string;
   presetId: PresetId;
   format: ExportFormat;
-  sourcePaths?: string[];
+  files: SourceMediaMeta[];
+  presetOverrides?: PresetOverrides;
 }
 
+/** 레거시 /api/export — 배치 export로 위임 */
 export async function startExport(body: ExportRequestBody) {
-  const paths = createStoragePathManager();
-  const batchId = body.batchId ?? body.jobId;
-  const outputDir = paths.outputDir(body.jobId);
-  const queue = createExportQueue();
-  await queue.add("export", {
-    jobId: body.jobId,
-    batchId,
-    sourcePaths: body.sourcePaths ?? [],
+  return startBatchExport({
+    batchId: body.batchId,
+    files: body.files,
     presetId: body.presetId,
-    format: body.format,
-    outputDir,
+    outputFormat: body.format,
+    presetOverrides: body.presetOverrides,
   });
-  return { jobId: body.jobId, status: "queued" as const };
 }

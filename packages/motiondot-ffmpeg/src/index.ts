@@ -3,6 +3,7 @@
  */
 export * from "./conversion/index";
 export * from "./probe/index";
+export * from "./preview/index";
 export * from "./client/ffmpeg-runner";
 export * from "./client/ffprobe-runner";
 export * from "./formats/index";

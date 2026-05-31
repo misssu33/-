@@ -15,6 +15,10 @@ export const BATCH_STATE_KEYS = {
   items: (batchId: string) => `${REDIS_KEY_PREFIX}batch:${batchId}:items`,
 } as const;
 
+export const DELIVERY_STATE_KEYS = {
+  snapshot: (batchId: string) => `${REDIS_KEY_PREFIX}delivery:${batchId}`,
+} as const;
+
 export const REDIS_KEY_PREFIX = "motiondot:";
 
 export const UPLOAD_LIMITS = {

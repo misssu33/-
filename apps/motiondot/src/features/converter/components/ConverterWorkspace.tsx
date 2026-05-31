@@ -1,7 +1,6 @@
 import { UploadDropzone } from "@/features/upload";
 import { PresetSelector } from "@/features/presets";
-import { PreviewPlayer } from "@/features/preview";
-import { ExportPanel } from "@/features/export";
+import { PreviewExportPanel } from "@/features/delivery";
 import { BatchProgressLive } from "@/features/progress";
 import { StartBatchButton } from "@/features/batch";
 import { FormatSelector } from "./FormatSelector";
@@ -15,10 +14,9 @@ export function ConverterWorkspace() {
         <PresetSelector />
         <FormatSelector />
         <StartBatchButton />
-        <ExportPanel />
+        <PreviewExportPanel />
       </div>
       <div className="space-y-6">
-        <PreviewPlayer />
         <BatchProgressLive />
       </div>
     </div>

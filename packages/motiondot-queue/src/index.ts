@@ -12,3 +12,7 @@ export {
 } from "./events/publish-batch-progress";
 export { BatchOrchestrator } from "./orchestration/batch-orchestrator";
 export { BatchStateStore, getBatchStateStore } from "./state/batch-state-store";
+export {
+  DeliveryStateStore,
+  getDeliveryStateStore,
+} from "./state/delivery-state-store";

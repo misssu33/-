@@ -1,5 +1,5 @@
 {
-  "name": "@motiondot/queue",
+  "name": "@motiondot/delivery",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -12,12 +12,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@motiondot/delivery": "workspace:*",
     "@motiondot/shared": "workspace:*",
-    "bullmq": "^5.34.0",
-    "ioredis": "5.4.2"
+    "archiver": "^7.0.0"
   },
   "devDependencies": {
+    "@types/archiver": "^6.0.0",
     "@types/node": "^22.0.0",
     "typescript": "^5.7.0"
   }

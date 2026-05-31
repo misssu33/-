@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@motiondot/delivery": "workspace:*",
     "@motiondot/ffmpeg": "workspace:*",
     "@motiondot/queue": "workspace:*",
     "@motiondot/shared": "workspace:*",

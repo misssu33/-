@@ -3,4 +3,8 @@ export { enqueueBatch } from "./batch.job";
 export type { ConversionJobData } from "./conversion.job";
 export type { PreviewJobData } from "./preview.job";
 export type { ExportJobData } from "./export.job";
+export type { BatchPreviewJobData } from "./batch-preview.job";
+export type { BatchExportJobData } from "./batch-export.job";
 export { enqueueConversion } from "./conversion.job";
+export { enqueueBatchPreview } from "./batch-preview.job";
+export { enqueueBatchExport } from "./batch-export.job";

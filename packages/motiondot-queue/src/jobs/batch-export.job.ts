@@ -1,4 +1,5 @@
 import type { ExportFormat, PresetId, PresetOverrides } from "@motiondot/shared";
+import { composeBullJobId } from "@motiondot/shared";
 import { createExportQueue } from "../queues/export.queue";
 import { getDeliveryStateStore } from "../state/delivery-state-store";
 
@@ -26,7 +27,7 @@ export async function enqueueBatchExport(
 
   const queue = createExportQueue();
   const job = await queue.add("batch-export", data, {
-    jobId: `${data.batchId}:export`,
+    jobId: composeBullJobId(data.batchId, "export"),
   });
-  return job.id ?? `${data.batchId}:export`;
+  return job.id ?? composeBullJobId(data.batchId, "export");
 }

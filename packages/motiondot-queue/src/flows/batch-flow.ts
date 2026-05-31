@@ -1,6 +1,6 @@
 import { FlowProducer } from "bullmq";
 import type { BatchJobPayload } from "@motiondot/shared";
-import { QUEUE_NAMES } from "@motiondot/shared";
+import { composeBullJobId, QUEUE_NAMES } from "@motiondot/shared";
 import { getBullMQConnection } from "../redis/connection";
 
 let flowProducer: FlowProducer | null = null;
@@ -23,7 +23,7 @@ export async function enqueueBatchFlow(payload: BatchJobPayload): Promise<void> 
     name: "batch-complete",
     queueName: QUEUE_NAMES.BATCH,
     data: { ...payload, phase: "finalize" },
-    opts: { jobId: `${payload.batchId}:finalize` },
+    opts: { jobId: composeBullJobId(payload.batchId, "finalize") },
     children: payload.items.map((item) => ({
       name: "convert",
       queueName: QUEUE_NAMES.CONVERSION,
@@ -37,7 +37,7 @@ export async function enqueueBatchFlow(payload: BatchJobPayload): Promise<void> 
         outputFormat: payload.outputFormat,
         createdAt: payload.createdAt,
       },
-      opts: { jobId: `${payload.batchId}:${item.itemId}` },
+      opts: { jobId: composeBullJobId(payload.batchId, item.itemId) },
     })),
   });
 }

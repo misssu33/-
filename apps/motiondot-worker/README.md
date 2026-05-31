@@ -5,8 +5,8 @@ BullMQ 워커 프로세스 + **worker_threads** ffmpeg 풀.
 ## Architecture
 
 ```
-motiondot:batch (orchestrator)
-    └─ fan-out → motiondot:conversion × N
+motiondot-batch (orchestrator)
+    └─ fan-out → motiondot-conversion × N
                       └─ FfmpegThreadPool (worker_threads)
 ```
 

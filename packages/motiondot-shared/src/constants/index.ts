@@ -1,12 +1,13 @@
 /**
  * 앱 전역 상수 — 환경 변수 키, 큐 이름, 제한값
  */
+/** BullMQ 큐 이름 — `:` 금지 (내부 Redis 키 구분자) */
 export const QUEUE_NAMES = {
-  BATCH: "motiondot:batch",
-  CONVERSION: "motiondot:conversion",
-  PREVIEW: "motiondot:preview",
-  EXPORT: "motiondot:export",
-  CLEANUP: "motiondot:cleanup",
+  BATCH: "motiondot-batch",
+  CONVERSION: "motiondot-conversion",
+  PREVIEW: "motiondot-preview",
+  EXPORT: "motiondot-export",
+  CLEANUP: "motiondot-cleanup",
 } as const;
 
 /** Redis 배치 상태 키 */

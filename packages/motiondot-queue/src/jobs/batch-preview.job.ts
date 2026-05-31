@@ -1,3 +1,4 @@
+import { composeBullJobId } from "@motiondot/shared";
 import { createPreviewQueue } from "../queues/preview.queue";
 import { getDeliveryStateStore } from "../state/delivery-state-store";
 
@@ -14,7 +15,7 @@ export async function enqueueBatchPreview(
   });
   const queue = createPreviewQueue();
   const job = await queue.add("batch-preview", data, {
-    jobId: `${data.batchId}:preview`,
+    jobId: composeBullJobId(data.batchId, "preview"),
   });
-  return job.id ?? `${data.batchId}:preview`;
+  return job.id ?? composeBullJobId(data.batchId, "preview");
 }

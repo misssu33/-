@@ -1,5 +1,9 @@
 import { randomUUID } from "node:crypto";
-import type { BatchJobPayload, ConversionJobPayload } from "@motiondot/shared";
+import {
+  composeBullJobId,
+  type BatchJobPayload,
+  type ConversionJobPayload,
+} from "@motiondot/shared";
 import { createConversionQueue } from "../queues/conversion.queue";
 import { getBatchStateStore } from "../state/batch-state-store";
 
@@ -27,7 +31,7 @@ export class BatchOrchestrator {
       };
 
       await conversionQueue.add("convert", conversionPayload, {
-        jobId: `${payload.batchId}:${item.itemId}`,
+        jobId: composeBullJobId(payload.batchId, item.itemId),
       });
     }
   }

@@ -18,10 +18,12 @@ export async function processExportJob(
     const output = `${paths.outputDir(job.data.jobId)}/${i}.${job.data.format}`;
 
     await publishProgress({
-      jobId: job.data.jobId,
+      scope: "batch",
+      jobId: job.data.batchId,
       batchId: job.data.batchId,
       phase: "export",
       percent: Math.round(((i + 1) / job.data.sourcePaths.length) * 100),
+      batchPercent: Math.round(((i + 1) / job.data.sourcePaths.length) * 100),
       timestamp: new Date().toISOString(),
     });
 

@@ -9,11 +9,23 @@ export interface FfmpegWorkerRequest {
   presetId: PresetId;
   format: ExportFormat;
   ffmpegPath?: string;
+  durationSec?: number | null;
+}
+
+export interface FfmpegWorkerProgressMessage {
+  type: "progress";
+  requestId: string;
+  percent: number;
 }
 
 export interface FfmpegWorkerResponse {
+  type: "done";
   requestId: string;
   success: boolean;
   exitCode: number;
   errorMessage?: string;
 }
+
+export type FfmpegWorkerOutbound =
+  | FfmpegWorkerProgressMessage
+  | FfmpegWorkerResponse;

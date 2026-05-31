@@ -2,7 +2,7 @@ import { UploadDropzone } from "@/features/upload";
 import { PresetSelector } from "@/features/presets";
 import { PreviewPlayer } from "@/features/preview";
 import { ExportPanel } from "@/features/export";
-import { JobProgressCard } from "@/features/progress";
+import { BatchProgressLive } from "@/features/progress";
 import { StartBatchButton } from "@/features/batch";
 import { FormatSelector } from "./FormatSelector";
 
@@ -19,7 +19,7 @@ export function ConverterWorkspace() {
       </div>
       <div className="space-y-6">
         <PreviewPlayer />
-        <JobProgressCard />
+        <BatchProgressLive />
       </div>
     </div>
   );

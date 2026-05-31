@@ -7,7 +7,10 @@ import type {
 } from "@motiondot/shared";
 import { BATCH_STATE_KEYS } from "@motiondot/shared";
 import { getRedisConnection } from "../redis/connection";
-import { publishProgress } from "../events/progress-publisher";
+import {
+  publishBatchProgress,
+  publishItemProgress,
+} from "../events/publish-batch-progress";
 
 interface BatchMetaRecord {
   batchId: string;
@@ -83,7 +86,24 @@ export class BatchStateStore {
       JSON.stringify(next),
     );
 
-    return this.recomputeBatchProgress(batchId, itemId, current.status, next.status);
+    const batch = await this.recomputeBatchProgress(
+      batchId,
+      current.status,
+      next.status,
+    );
+
+    if (patch.progress !== undefined) {
+      await publishItemProgress({
+        batchId,
+        itemId,
+        percent: next.progress,
+        batchPercent: batch?.progress ?? 0,
+        message: next.originalName,
+        phase: next.status === "completed" ? "done" : "transcode",
+      });
+    }
+
+    return batch;
   }
 
   async getBatch(batchId: string): Promise<BatchJobMeta | null> {
@@ -111,7 +131,6 @@ export class BatchStateStore {
 
   private async recomputeBatchProgress(
     batchId: string,
-    itemId: string,
     prevStatus: JobStatus,
     nextStatus: JobStatus,
   ): Promise<BatchJobMeta | null> {
@@ -124,29 +143,35 @@ export class BatchStateStore {
       if (nextStatus === "failed") meta.failedItems += 1;
     }
 
-    const done = meta.completedItems + meta.failedItems;
-    meta.progress =
-      meta.totalItems > 0 ? Math.round((done / meta.totalItems) * 100) : 0;
+    const items = await this.loadItems(batchId);
+    meta.progress = computeAggregatePercent(items);
 
-    if (done >= meta.totalItems) {
+    const done = meta.completedItems + meta.failedItems;
+    if (done >= meta.totalItems && meta.totalItems > 0) {
       meta.status = meta.failedItems > 0 ? "failed" : "completed";
-    } else if (done > 0 || nextStatus === "processing") {
+    } else if (done > 0 || items.some((i) => i.status === "processing")) {
       meta.status = "processing";
     }
 
     meta.updatedAt = new Date().toISOString();
     await this.redis.set(BATCH_STATE_KEYS.meta(batchId), JSON.stringify(meta));
 
-    await publishProgress({
-      jobId: batchId,
+    await publishBatchProgress({
       batchId,
-      phase: meta.status === "completed" ? "done" : "transcode",
+      phase:
+        meta.status === "completed" || meta.status === "failed"
+          ? "done"
+          : "transcode",
       percent: meta.progress,
-      timestamp: meta.updatedAt,
+      message: `${meta.completedItems}/${meta.totalItems} files`,
     });
 
-    void itemId;
     return this.getBatch(batchId);
+  }
+
+  private async loadItems(batchId: string): Promise<BatchItemState[]> {
+    const itemsRaw = await this.redis.hgetall(BATCH_STATE_KEYS.items(batchId));
+    return Object.values(itemsRaw).map((v) => JSON.parse(v) as BatchItemState);
   }
 
   private async getMetaRecord(batchId: string): Promise<BatchMetaRecord | null> {
@@ -154,6 +179,16 @@ export class BatchStateStore {
     if (!raw) return null;
     return JSON.parse(raw) as BatchMetaRecord;
   }
+}
+
+function computeAggregatePercent(items: BatchItemState[]): number {
+  if (items.length === 0) return 0;
+  const sum = items.reduce((acc, item) => {
+    if (item.status === "completed") return acc + 100;
+    if (item.status === "failed") return acc + 0;
+    return acc + item.progress;
+  }, 0);
+  return Math.round(sum / items.length);
 }
 
 let store: BatchStateStore | null = null;

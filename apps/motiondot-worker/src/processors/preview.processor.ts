@@ -13,8 +13,10 @@ export async function processPreviewJob(
   const previewPath = paths.previewPath(job.data.jobId);
 
   await publishProgress({
+    scope: "item",
     jobId: job.data.jobId,
     batchId: job.data.jobId,
+    itemId: job.data.jobId,
     phase: "preview",
     percent: 10,
     timestamp: new Date().toISOString(),

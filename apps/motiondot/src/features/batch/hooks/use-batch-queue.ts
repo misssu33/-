@@ -1,15 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import type { BatchJobMeta } from "@motiondot/shared";
 import { useBatchStore } from "@/stores/batch-store";
 import { useConverterStore } from "@/stores/converter-store";
+import { useProgressStore } from "@/stores/progress-store";
 
 export function useBatchQueue() {
   const batchId = useBatchStore((s) => s.batchId);
   const uploadedFiles = useBatchStore((s) => s.uploadedFiles);
   const activeBatch = useBatchStore((s) => s.activeBatch);
+  const setBatchId = useBatchStore((s) => s.setBatchId);
   const setActiveBatch = useBatchStore((s) => s.setActiveBatch);
+  const setProgressBatch = useProgressStore((s) => s.setActiveBatch);
   const { presetId, format } = useConverterStore();
 
   const [isStarting, setIsStarting] = useState(false);
@@ -41,8 +44,10 @@ export function useBatchQueue() {
         throw new Error("error" in payload ? payload.error : "Batch start failed");
       }
 
-      setActiveBatch(payload as BatchJobMeta);
-      return payload as BatchJobMeta;
+      const batch = payload as BatchJobMeta;
+      setActiveBatch(batch);
+      setProgressBatch(batch);
+      return batch;
     } catch (err) {
       const message = err instanceof Error ? err.message : "Batch start failed";
       setError(message);
@@ -50,45 +55,22 @@ export function useBatchQueue() {
     } finally {
       setIsStarting(false);
     }
-  }, [batchId, uploadedFiles, presetId, format, setActiveBatch]);
-
-  const refreshBatch = useCallback(async () => {
-    if (!batchId) return;
-    const res = await fetch(`/api/batch/${batchId}`);
-    if (!res.ok) return;
-    const data = (await res.json()) as BatchJobMeta;
-    setActiveBatch(data);
-  }, [batchId, setActiveBatch]);
-
-  useEffect(() => {
-    if (!batchId || !activeBatch) return;
-    if (activeBatch.status === "completed" || activeBatch.status === "failed") {
-      return;
-    }
-
-    const interval = setInterval(() => {
-      void refreshBatch();
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, [batchId, activeBatch, refreshBatch]);
-
-  useEffect(() => {
-    if (!batchId) return;
-    const es = new EventSource(`/api/progress?jobId=${batchId}`);
-    es.onmessage = () => {
-      void refreshBatch();
-    };
-    return () => es.close();
-  }, [batchId, refreshBatch]);
+  }, [
+    batchId,
+    uploadedFiles,
+    presetId,
+    format,
+    setActiveBatch,
+    setProgressBatch,
+  ]);
 
   return {
     startBatch,
-    refreshBatch,
     isStarting,
     error,
     activeBatch,
     batchId,
     fileCount: uploadedFiles.length,
+    setBatchId,
   };
 }

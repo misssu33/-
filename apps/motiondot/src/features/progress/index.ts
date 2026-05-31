@@ -1,3 +1,4 @@
 export { JobProgressCard } from "./components/JobProgressCard";
+export { BatchProgressLive } from "./components/BatchProgressLive";
 export { useJobProgress } from "./hooks/use-job-progress";
-export { createProgressStream } from "./services/progress-sse";
+export { useBatchProgress } from "./hooks/use-batch-progress";

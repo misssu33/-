@@ -1,5 +1,8 @@
 import type { Job } from "bullmq";
-import { BatchOrchestrator } from "@motiondot/queue";
+import {
+  BatchOrchestrator,
+  publishBatchProgress,
+} from "@motiondot/queue";
 import type { BatchJobData } from "@motiondot/queue";
 import { getBatchStateStore } from "@motiondot/queue";
 
@@ -15,6 +18,13 @@ export async function processBatchJob(job: Job<BatchJobData>): Promise<void> {
     }
     return;
   }
+
+  await publishBatchProgress({
+    batchId: job.data.batchId,
+    phase: "queue",
+    percent: 0,
+    message: `Queuing ${job.data.items.length} files`,
+  });
 
   await orchestrator.dispatch(job.data);
   await job.updateProgress(100);

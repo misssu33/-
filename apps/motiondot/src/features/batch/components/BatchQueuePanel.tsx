@@ -1,6 +1,6 @@
 "use client";
 
-import { ProgressBar } from "@/shared/ui/progress/ProgressBar";
+import { BatchProgressLive } from "@/features/progress";
 import { useBatchQueue } from "../hooks/use-batch-queue";
 import { StartBatchButton } from "./StartBatchButton";
 import { cn } from "@/shared/lib/cn";
@@ -28,6 +28,8 @@ export function BatchQueuePanel() {
 
       <StartBatchButton />
 
+      <BatchProgressLive batchId={batchId} />
+
       {batchId && (
         <p className="text-xs text-zinc-600">
           Batch ID: <code className="text-zinc-400">{batchId.slice(0, 8)}…</code>
@@ -36,20 +38,6 @@ export function BatchQueuePanel() {
 
       {activeBatch && (
         <>
-          <div>
-            <div className="mb-2 flex justify-between text-sm">
-              <span className="text-zinc-400">
-                {STATUS_LABEL[activeBatch.status] ?? activeBatch.status}
-              </span>
-              <span className="text-zinc-400">
-                {activeBatch.completedItems}/{activeBatch.totalItems} 완료
-                {activeBatch.failedItems > 0 &&
-                  ` · ${activeBatch.failedItems} 실패`}
-              </span>
-            </div>
-            <ProgressBar value={activeBatch.progress} />
-          </div>
-
           <ul className="space-y-2 text-sm">
             {activeBatch.items.map((item) => (
               <li
